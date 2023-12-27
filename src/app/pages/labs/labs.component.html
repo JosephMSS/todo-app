@@ -29,5 +29,9 @@
   <br />
   <input type="text" name="" id="" (keydown)="keyDownHandler($event)" /> <br />
   <h3>Event with shortcuts</h3>
-  <input type="text" (keydown.shift.e)="handleClick()"/>
+  <input type="text" (keydown.shift.e)="handleClick()" />
+  <hr />
+  <h3>Signals</h3>
+  <p>{{ name() }}</p>
+  <button type="button" (click)="changeNameHandler()">Change signal</button>
 </section>

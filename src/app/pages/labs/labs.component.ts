@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 interface Person {
   name: string;
   age: number;
@@ -7,6 +7,8 @@ interface Person {
   imageAlt: string;
 }
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
   selector: 'app-labs',
   standalone: true,
   imports: [NgFor],
@@ -16,7 +18,7 @@ interface Person {
 export class LabsComponent {
   private message = 'todo-app'; // en este caso sei es privado el html no va a poder acceder a la variable
   tasks = ['todo 1', 'todo 2', 'todo 3', 'todo 4', 'todo 5'];
-  name = 'John Doe';
+  name = signal('John Doe');
   disabled = true;
   person: Person = {
     name: 'John Doe',
@@ -47,5 +49,8 @@ export class LabsComponent {
       '🚀 ~ file: labs.component.ts:35 ~ LabsComponent ~ changeHandler ~ event:',
       event
     );
+  }
+  changeNameHandler() {
+    this.name.set('Jane Doe');
   }
 }
