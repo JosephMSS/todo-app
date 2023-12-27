@@ -17,7 +17,7 @@ interface Person {
 })
 export class LabsComponent {
   private message = 'todo-app'; // en este caso sei es privado el html no va a poder acceder a la variable
-  tasks = ['todo 1', 'todo 2', 'todo 3', 'todo 4', 'todo 5'];
+  tasks = signal(['todo 1', 'todo 2', 'todo 3', 'todo 4', 'todo 5']);
   name = signal('John Doe');
   disabled = true;
   person: Person = {
