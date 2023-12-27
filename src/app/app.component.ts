@@ -7,8 +7,9 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'todo-app';
+  message = 'todo-app';
+  tasks = ['todo 1', 'todo 2', 'todo 3', 'todo 4', 'todo 5'];
 }
