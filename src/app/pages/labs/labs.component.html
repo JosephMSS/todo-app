@@ -1,7 +1,33 @@
-<h1>Primer proyecto en angular</h1>
-<h2>{{ message }}</h2>
-<ul>
-  <li *ngFor="let task of tasks">
-    {{ task }}
-  </li>
-</ul>
+<section class="container">
+  <h1>Primer proyecto en angular</h1>
+  <!-- <h2>{{ message }}</h2> -->
+  <ul>
+    <li *ngFor="let task of tasks">
+      {{ task }}
+    </li>
+  </ul>
+  <hr />
+  <h3>
+    Podemos utilizar funciones de javascript en los corchetes por ejemplo 2+2={{
+      2 + 2
+    }}
+  </h3>
+  <hr />
+  <h3>Property binding</h3>
+  <input type="text" [value]="person.name" /> <br />
+  <input type="number" [value]="person.age" /> <br />
+  <img [src]="person.imageUrl" [alt]="person.imageAlt" /><br />
+  <button type="button" [disabled]="disabled">disabled btn</button>
+  <hr />
+  <h3>Event binding</h3>
+  <button type="button" (click)="handleClick()">click me!!!</button><br />
+  <button type="button" (dblclick)="handleDbClick()">db click me!!!</button>
+  <h3>(CHANGE EVENT)</h3>
+  <input type="text" (change)="changeHandler($event)" [value]="person.name" />
+  <br />
+  <input type="number" (change)="changeHandler($event)" [value]="person.age" />
+  <br />
+  <input type="text" name="" id="" (keydown)="keyDownHandler($event)" /> <br />
+  <h3>Event with shortcuts</h3>
+  <input type="text" (keydown.shift.e)="handleClick()"/>
+</section>
