@@ -1619,6 +1619,36 @@
     read-package-json-fast "^3.0.0"
     which "^4.0.0"
 
+"@oxlint/darwin-arm64@0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@oxlint/darwin-arm64/-/darwin-arm64-0.0.22.tgz#6c8766f375b1954032379229fff130878e81fe20"
+  integrity sha512-n8ZsnApsKKxho00fYR+EzOEt6dVcuMfwdOwoAwpWwdIwrJRUyjWDzZhauX1VGEmgf4Hzm2y53aJMSZAWnIbr7g==
+
+"@oxlint/darwin-x64@0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@oxlint/darwin-x64/-/darwin-x64-0.0.22.tgz#2c8091eb722d9ee186c8a47d8be392fc917974f3"
+  integrity sha512-glVFfh5OtpeqfW2xGf47LPZxByvoodQKQF9Y3ql6HVNHzpUNSDsacO/5hyQ585FiKG3OtFlOP8TaeeDCcj+pXQ==
+
+"@oxlint/linux-arm64@0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@oxlint/linux-arm64/-/linux-arm64-0.0.22.tgz#951cfc224f11b3100036f09d15d9fb790cce5c8d"
+  integrity sha512-01B8IEMQBFXGabcqLJXxiaT5eTqjO6eNJTl9HwaGJsTlDIxfbE0wPGWJz1POuvTDHDp+IjAR+NjuCwgikWpzbg==
+
+"@oxlint/linux-x64@0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@oxlint/linux-x64/-/linux-x64-0.0.22.tgz#201299b65a2a9a768348943e801da2105401585c"
+  integrity sha512-pR9G7yt6RuZMgahe/fAl+TN4hgKZ60qfktwgMn5aLZAufE3fVEg83KncJtFwE++gTiG+xZ8qReYPjEWlI7a7cQ==
+
+"@oxlint/win32-arm64@0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@oxlint/win32-arm64/-/win32-arm64-0.0.22.tgz#782cad274ee69d934ca458bf9026a3da3dc69228"
+  integrity sha512-R/uejrBLO4uQw+jbyusn1LwNTHasZCeiFa/zmP31CRlgD/tUwTYGpERLkpGRmvlzwf8UeFOxyRibNLzz4pXpxA==
+
+"@oxlint/win32-x64@0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@oxlint/win32-x64/-/win32-x64-0.0.22.tgz#89a50b37afe60caa9c0692c993189a4f0a1ea50d"
+  integrity sha512-g4mY10w/oFJUE6lc8F0IiU5LTEKcqxmY4vdmPLQZa2FoM8d2Rf+lLdbiaL9xouF8Zlp8mUyEgWHasKgN/wzLxw==
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
@@ -4974,6 +5004,18 @@ os-tmpdir@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
   integrity sha512-D2FR03Vir7FIu45XBY20mTb+/ZSWB00sjU9jdQXt83gDrI4Ztz5Fs7/yy74g2N5SVQY4xY1qDr4rNddwYRVX0g==
+
+oxlint@^0.0.22:
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/oxlint/-/oxlint-0.0.22.tgz#61db77cec45c34d51249b410d2d83aec8de0e467"
+  integrity sha512-ZV9pmXiNdY9CHkDcceJ8bpo05HfgLb2nC6wlGcQeUktHpX8ASHgWM2fuw4fEPhhWsydy2lmdiNkw55CCw6S2+g==
+  optionalDependencies:
+    "@oxlint/darwin-arm64" "0.0.22"
+    "@oxlint/darwin-x64" "0.0.22"
+    "@oxlint/linux-arm64" "0.0.22"
+    "@oxlint/linux-x64" "0.0.22"
+    "@oxlint/win32-arm64" "0.0.22"
+    "@oxlint/win32-x64" "0.0.22"
 
 p-limit@^2.2.0:
   version "2.3.0"
