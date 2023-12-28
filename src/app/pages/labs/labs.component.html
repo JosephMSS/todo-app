@@ -46,9 +46,9 @@
   <hr />
   <h3>NG SWITCH</h3>
   <br />
-    <ng-container *ngFor="let config of config()">
-      <button (click)="changeSelectedConfig(config)">{{ config }}</button><br/>
-    </ng-container>
+  <ng-container *ngFor="let config of config()">
+    <button (click)="changeSelectedConfig(config)">{{ config }}</button><br />
+  </ng-container>
   <br />
   <section>
     <ng-container [ngSwitch]="selectedConfig()">
@@ -58,4 +58,15 @@
       <p *ngSwitchDefault>default</p>
     </ng-container>
   </section>
+  <br />
+  <hr />
+  <input type="text" [formControl]="classCtrl" />
+  <!-- Hace que el input aparezca hasta que se presente un interacción con el usuario -->
+  <p
+    [ngClass]="classCtrl.valid ? '' : 'message-error'"
+   [class.show]="classCtrl.invalid && classCtrl.touched"
+  >
+    Nombre invalido
+  </p>
+  <input type="text" name="" id="">
 </section>

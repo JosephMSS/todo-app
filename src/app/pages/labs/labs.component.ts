@@ -1,5 +1,6 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 interface Person {
   name: string;
   age: number;
@@ -11,7 +12,7 @@ interface Person {
 
   selector: 'app-labs',
   standalone: true,
-  imports: [NgFor, NgIf, CommonModule],
+  imports: [NgFor, NgIf, CommonModule, ReactiveFormsModule],
   templateUrl: './labs.component.html',
   styleUrl: './labs.component.css',
 })
@@ -29,6 +30,10 @@ export class LabsComponent {
   config = signal(['dev', 'prod', 'test']);
   selectedConfig = signal(this.config()[0]);
   ifState = signal(true);
+  classCtrl = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required],
+  });
   // los parámetros de los eventos y su detección de
   // cambios dependen del tipo de evento que se define
   // en el  html
