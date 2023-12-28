@@ -1,11 +1,11 @@
-import { NgFor } from '@angular/common';
+import { JsonPipe, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { Task } from '../../models/task.model';
+import { Task, UpdateTask } from '../../models/task.model';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, JsonPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -20,6 +20,7 @@ export class HomeComponent {
     const { value } = e.target as HTMLInputElement;
     const newTask = this.createTask(value);
     this.addTask(newTask);
+    (e.target as HTMLInputElement).value = '';
   }
   deleteHandler(index: number) {
     this.tasks.update((tasks) =>
@@ -42,5 +43,19 @@ export class HomeComponent {
      * *nuevo estado y no mutar el anterior
      *  */
     this.tasks.update((tasks) => [...tasks, task]);
+  }
+  updateTask(index: number, changes: UpdateTask) {
+    this.tasks.update((tasks) => {
+      return tasks.map((task, position) => {
+        if (position != index) {
+          return task;
+        }
+        const updatedTask = {
+          ...task,
+          ...changes,
+        };
+        return updatedTask;
+      });
+    });
   }
 }

@@ -24,9 +24,21 @@
           </div>
           <input class="edit" value="Learn JavaScript" />
         </li>
+        <code>
+          {{ tasks() | json }}
+        </code>
         <li *ngFor="let task of tasks(); index as index">
           <div class="view">
-            <input class="toggle" type="checkbox" />
+            <input
+              class="toggle"
+              type="checkbox"
+              [checked]="task.completed"
+              (click)="
+                updateTask(index, {
+                  completed: !task.completed
+                })
+              "
+            />
             <label>{{ task.title }}</label>
             <button class="destroy" (click)="deleteHandler(index)"></button>
           </div>
