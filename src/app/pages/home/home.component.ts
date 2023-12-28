@@ -37,4 +37,9 @@ export class HomeComponent {
       return [...tasks, newTask];
     });
   }
+  deleteHandler(index: number) {
+    this.tasks.update((tasks) =>
+      tasks.filter((task, position) => position !== index)
+    );
+  }
 }
