@@ -8,6 +8,7 @@
         placeholder="Type new todo"
         autofocus
         type="text"
+        (change)="changeHandler($event)"
       />
     </div>
   </header>
@@ -26,7 +27,7 @@
         <li *ngFor="let task of tasks()">
           <div class="view">
             <input class="toggle" type="checkbox" />
-            <label>{{task.title}}</label>
+            <label>{{ task.title }}</label>
             <button class="destroy"></button>
           </div>
           <input class="edit" value="Buy a unicorn" />
