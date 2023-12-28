@@ -29,11 +29,18 @@
   <hr />
   <h3>Signals</h3>
   <p>{{ name() }}</p>
-  <button type="button" (click)="changeNameHandler()">Change signal</button><hr>
+  <button type="button" (click)="changeNameHandler()">Change signal</button>
+  <hr />
   <h3>Directivas de control</h3>
   <ul>
     <li *ngFor="let task of tasks()">
       {{ task }}
     </li>
   </ul>
+  <hr />
+  <button (click)="changeIfState()">Change if State</button>
+  <ng-container *ngIf="ifState(); else elseTemplate">
+    <h3>NG IF</h3>
+  </ng-container>
+  <ng-template #elseTemplate> <h3>NG-else</h3> </ng-template>
 </section>
