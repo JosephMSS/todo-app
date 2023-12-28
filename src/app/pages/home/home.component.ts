@@ -1,11 +1,13 @@
 import { JsonPipe, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task, UpdateTask } from '../../models/task.model';
+const INITIAL_FORM_STATE=''
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, JsonPipe],
+  imports: [NgFor, JsonPipe, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -16,11 +18,16 @@ export class HomeComponent {
     this.createTask('Finish service functionality'),
     this.createTask('Setup API'),
   ]);
-  changeHandler(e: Event) {
-    const { value } = e.target as HTMLInputElement;
-    const newTask = this.createTask(value);
-    this.addTask(newTask);
-    (e.target as HTMLInputElement).value = '';
+  formCtrl = new FormControl(INITIAL_FORM_STATE, {
+    nonNullable: true,
+    validators: [Validators.required],
+  });
+  changeHandler() {
+    if (this.formCtrl.valid && this.formCtrl.value.trim()) {
+      const newTask = this.createTask(this.formCtrl.value);
+      this.addTask(newTask);
+    }
+    this.formCtrl.setValue(INITIAL_FORM_STATE);
   }
   deleteHandler(index: number) {
     this.tasks.update((tasks) =>
