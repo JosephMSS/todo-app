@@ -43,4 +43,19 @@
     <h3>NG IF</h3>
   </ng-container>
   <ng-template #elseTemplate> <h3>NG-else</h3> </ng-template>
+  <hr />
+  <h3>NG SWITCH</h3>
+  <br />
+    <ng-container *ngFor="let config of config()">
+      <button (click)="changeSelectedConfig(config)">{{ config }}</button><br/>
+    </ng-container>
+  <br />
+  <section>
+    <ng-container [ngSwitch]="selectedConfig()">
+      <p *ngSwitchCase="config()[0]">development</p>
+      <p *ngSwitchCase="config()[1]">production</p>
+      <p *ngSwitchCase="config()[2]">test</p>
+      <p *ngSwitchDefault>default</p>
+    </ng-container>
+  </section>
 </section>
