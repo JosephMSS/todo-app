@@ -33,10 +33,6 @@ export class LabsComponent {
   keyDownHandler(event: KeyboardEvent) {
     console.log('key down', event);
     const input = event.target as HTMLInputElement;
-    console.log(
-      '🚀 ~ file: labs.component.ts:30 ~ LabsComponent ~ keyDownHandler ~ input:',
-      input.value
-    );
   }
   handleClick() {
     console.log('click', this.person);
@@ -46,10 +42,6 @@ export class LabsComponent {
     console.log('double click');
   }
   changeHandler(event: Event) {
-    console.log(
-      '🚀 ~ file: labs.component.ts:35 ~ LabsComponent ~ changeHandler ~ event:',
-      event
-    );
   }
   changeNameHandler() {
     this.name.set('Jane Doe');
