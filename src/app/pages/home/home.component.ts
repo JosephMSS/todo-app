@@ -8,6 +8,18 @@ import {
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task, UpdateTask } from '../../models/task.model';
 const INITIAL_FORM_STATE = '';
+enum StorageItem {
+  Tasks = 'tasks',
+}
+const getStorage = (storageItem: StorageItem) => {
+  const storage = localStorage.getItem(storageItem);
+  if (!storage) return [];
+  return JSON.parse(storage);
+};
+const setStorage = (storageItem: StorageItem, value: any) => {
+  const data = JSON.stringify(value);
+  localStorage.setItem(storageItem, data);
+};
 //generate random unique id without date.now
 
 const generateId = () => {
@@ -25,12 +37,7 @@ const create = (title: string) => {
   };
   return newTask;
 };
-const INITIAL_TASK_STATE: Task[] = [
-  create('Install Angular CLI'),
-  create('Style app'),
-  create('Finish service functionality'),
-  create('Setup API'),
-];
+const INITIAL_TASK_STATE: Task[] = [];
 enum TaskStatus {
   Pending = 'pending',
   Completed = 'completed',
@@ -48,9 +55,9 @@ export class HomeComponent {
   statusTask = TaskStatus;
   tasks = signal<Task[]>(INITIAL_TASK_STATE);
   selectedStatusTask = signal<TaskStatus>(this.statusTask.All);
-  //Computed  retona un valor computado, es decir, un valor que se calcula en base a otros valores.
+  //Computed  retorna un valor computado, es decir, un valor que se calcula en base a otros valores.
   /**
-   * Esta pedniente de camnios en los signals que se le pasan como argumento
+   * Esta pendiente de cambios en los signals que se le pasan como argumento
    */
   filteredTasks = computed(() => {
     const filter = this.selectedStatusTask();
