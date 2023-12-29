@@ -2,7 +2,10 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Injector,
   computed,
+  effect,
+  inject,
   signal,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,12 +14,13 @@ const INITIAL_FORM_STATE = '';
 enum StorageItem {
   Tasks = 'tasks',
 }
-const getStorage = (storageItem: StorageItem) => {
+const getStorage = <T>(storageItem: StorageItem): T[] => {
   const storage = localStorage.getItem(storageItem);
-  if (!storage) return [];
+  const defaultValue: T[] = [];
+  if (!storage) return defaultValue;
   return JSON.parse(storage);
 };
-const setStorage = (storageItem: StorageItem, value: any) => {
+const setStorage = <T>(storageItem: StorageItem, value: T) => {
   const data = JSON.stringify(value);
   localStorage.setItem(storageItem, data);
 };
@@ -78,8 +82,26 @@ export class HomeComponent {
     nonNullable: true,
     validators: [Validators.required],
   });
+  ngOnInit(){
+    this.find()
+    this.trackTasks()
+  }
+  /**
+   * !Se usa injector en caso de que el effect no se utilizado en el constructor de la clase
+   */
+  injector = inject(Injector);
+  trackTasks() {
+    effect(
+      () => {
+        const tasks = this.tasks();
+        setStorage<Task[]>(StorageItem.Tasks, tasks);
+      },
+      { injector: this.injector }
+    );
+  }
   createHandler() {
     if (this.formCtrl.valid && this.formCtrl.value.trim()) {
+      this.create(this.formCtrl.value);
     }
     this.formCtrl.setValue(INITIAL_FORM_STATE);
   }
@@ -140,5 +162,8 @@ export class HomeComponent {
         return updatedTask;
       });
     });
+  }
+  find() {
+    this.tasks.update((_tasks) => getStorage<Task>(StorageItem.Tasks));
   }
 }
