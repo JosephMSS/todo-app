@@ -14,10 +14,10 @@ const FORM_CONFIG = {};
 })
 export class HomeComponent {
   tasks = signal<Task[]>([
-    this.createTask('Install Angular CLI'),
-    this.createTask('Style app'),
-    this.createTask('Finish service functionality'),
-    this.createTask('Setup API'),
+    this.create('Install Angular CLI'),
+    this.create('Style app'),
+    this.create('Finish service functionality'),
+    this.create('Setup API'),
   ]);
   formCtrl = new FormControl(INITIAL_FORM_STATE, {
     nonNullable: true,
@@ -27,19 +27,31 @@ export class HomeComponent {
     nonNullable: true,
     validators: [Validators.required],
   });
-  changeHandler() {
+  createHandler() {
     if (this.formCtrl.valid && this.formCtrl.value.trim()) {
-      const newTask = this.createTask(this.formCtrl.value);
-      this.addTask(newTask);
+      const newTask = this.create(this.formCtrl.value);
     }
     this.formCtrl.setValue(INITIAL_FORM_STATE);
   }
-  deleteHandler(index: number) {
+  deleteHandler(id: string) {
+    this.delete(id);
+  }
+  editHandler(id: string, changes: UpdateTask) {
+    if (changes.title) this.editFormCrl.setValue(changes.title);
+    this.update(id, changes);
+  }
+  updateHandler(id: string) {
+    if (this.editFormCrl.valid && this.editFormCrl.value.trim()) {
+      this.update(id, { title: this.editFormCrl.value, editing: false });
+    }
+  }
+
+  delete(id: string) {
     this.tasks.update((tasks) =>
-      tasks.filter((task, position) => position !== index)
+      tasks.filter((task, position) => task.id !== id)
     );
   }
-  createTask(title: string) {
+  create(title: string) {
     const id = Date.now().toString();
     const newTask: Task = {
       id,
@@ -48,33 +60,21 @@ export class HomeComponent {
       isUpdatable: true,
       editing: false,
     };
-    return newTask;
-  }
-  addTask(task: Task) {
     /**
      * *Los signals tienen métodos para actualizar sus valores,
      * *ademas de darnos el estado anterior, debemos retornar un
      * *nuevo estado y no mutar el anterior
      *  */
-    this.tasks.update((tasks) => [...tasks, task]);
+    this.tasks.update((tasks) => [...tasks, newTask]);
+    return newTask;
   }
-
-  editHandler(index: number, changes: UpdateTask) {
-    if (changes.title) this.editFormCrl.setValue(changes.title);
-    this.updateTask(index, changes);
-  }
-  updateHandler(index: number) {
-    if (this.editFormCrl.valid && this.editFormCrl.value.trim()) {
-      this.updateTask(index, { title: this.editFormCrl.value, editing: false });
-    }
-  }
-  updateTask(index: number, changes: UpdateTask) {
+  update(id: string, changes: UpdateTask) {
     this.tasks.update((tasks) => {
-      return tasks.map((task, position) => {
-        if (position != index) {
+      return tasks.map((task) => {
+        if (task.id != id) {
           return { ...task, editing: false };
         }
-        
+
         const updatedTask = {
           ...task,
           ...changes,

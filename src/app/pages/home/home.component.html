@@ -8,7 +8,7 @@
         placeholder="Type new todo"
         autofocus
         type="text"
-        (keydown.enter)="changeHandler()"
+        (keydown.enter)="createHandler()"
         [formControl]="formCtrl"
       />
     </div>
@@ -25,7 +25,9 @@
           *ngFor="let task of tasks(); index as index"
           [class.completed]="task.completed"
           [class.editing]="task.editing"
-          (dblclick)="editHandler(index, { editing: true, title: task.title })"
+          (dblclick)="
+            editHandler(task.id, { editing: true, title: task.title })
+          "
         >
           <div class="view">
             <input
@@ -33,18 +35,18 @@
               type="checkbox"
               [checked]="task.completed"
               (click)="
-                updateTask(index, {
+                update(task.id, {
                   completed: !task.completed,
                 })
               "
             />
             <label>{{ task.title }}</label>
-            <button class="destroy" (click)="deleteHandler(index)"></button>
+            <button class="destroy" (click)="deleteHandler(task.id)"></button>
           </div>
           <input
             class="edit"
             [value]="task.title"
-            (keydown.enter)="updateHandler(index)"
+            (keydown.enter)="updateHandler(task.id)"
             [formControl]="editFormCrl"
           />
         </li>
