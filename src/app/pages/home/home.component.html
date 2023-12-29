@@ -17,18 +17,14 @@
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class="main">
       <ul class="todo-list">
-        <li class="completed">
-          <div class="view">
-            <input class="toggle" type="checkbox" checked />
-            <label>Learn JavaScript</label>
-            <button class="destroy"></button>
-          </div>
-          <input class="edit" value="Learn JavaScript" />
-        </li>
         <code>
           {{ tasks() | json }}
         </code>
-        <li *ngFor="let task of tasks(); index as index">
+
+        <li
+          *ngFor="let task of tasks(); index as index"
+          [class.completed]="task.completed"
+        >
           <div class="view">
             <input
               class="toggle"
@@ -43,7 +39,7 @@
             <label>{{ task.title }}</label>
             <button class="destroy" (click)="deleteHandler(index)"></button>
           </div>
-          <input class="edit" value="Buy a unicorn" />
+          <input class="edit" [value]="task.title" />
         </li>
         <li class="editing">
           <div class="view">

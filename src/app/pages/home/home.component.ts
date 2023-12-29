@@ -1,13 +1,13 @@
-import { JsonPipe, NgFor } from '@angular/common';
+import { CommonModule, JsonPipe, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task, UpdateTask } from '../../models/task.model';
-const INITIAL_FORM_STATE=''
+const INITIAL_FORM_STATE = '';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, JsonPipe, ReactiveFormsModule],
+  imports: [CommonModule, JsonPipe, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -40,6 +40,7 @@ export class HomeComponent {
       id,
       title,
       completed: false,
+      isEditable: true,
     };
     return newTask;
   }
@@ -55,6 +56,9 @@ export class HomeComponent {
     this.tasks.update((tasks) => {
       return tasks.map((task, position) => {
         if (position != index) {
+          return task;
+        }
+        if (!task.isEditable) {
           return task;
         }
         const updatedTask = {
