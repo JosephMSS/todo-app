@@ -24,6 +24,8 @@
         <li
           *ngFor="let task of tasks(); index as index"
           [class.completed]="task.completed"
+          [class.editing]="task.editing"
+          (dblclick)="editHandler(index, { editing: true, title: task.title })"
         >
           <div class="view">
             <input
@@ -32,22 +34,19 @@
               [checked]="task.completed"
               (click)="
                 updateTask(index, {
-                  completed: !task.completed
+                  completed: !task.completed,
                 })
               "
             />
             <label>{{ task.title }}</label>
             <button class="destroy" (click)="deleteHandler(index)"></button>
           </div>
-          <input class="edit" [value]="task.title" />
-        </li>
-        <li class="editing">
-          <div class="view">
-            <input class="toggle" type="checkbox" />
-            <label>Make dishes</label>
-            <button class="destroy"></button>
-          </div>
-          <input class="edit" value="Make dishes" />
+          <input
+            class="edit"
+            [value]="task.title"
+            (keydown.enter)="updateHandler(index)"
+            [formControl]="editFormCrl"
+          />
         </li>
       </ul>
     </section>

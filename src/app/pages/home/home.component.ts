@@ -1,8 +1,9 @@
-import { CommonModule, JsonPipe, NgFor } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task, UpdateTask } from '../../models/task.model';
 const INITIAL_FORM_STATE = '';
+const FORM_CONFIG = {};
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home',
@@ -19,6 +20,10 @@ export class HomeComponent {
     this.createTask('Setup API'),
   ]);
   formCtrl = new FormControl(INITIAL_FORM_STATE, {
+    nonNullable: true,
+    validators: [Validators.required],
+  });
+  editFormCrl = new FormControl(INITIAL_FORM_STATE, {
     nonNullable: true,
     validators: [Validators.required],
   });
@@ -40,7 +45,8 @@ export class HomeComponent {
       id,
       title,
       completed: false,
-      isEditable: true,
+      isUpdatable: true,
+      editing: false,
     };
     return newTask;
   }
@@ -52,19 +58,28 @@ export class HomeComponent {
      *  */
     this.tasks.update((tasks) => [...tasks, task]);
   }
+
+  editHandler(index: number, changes: UpdateTask) {
+    if (changes.title) this.editFormCrl.setValue(changes.title);
+    this.updateTask(index, changes);
+  }
+  updateHandler(index: number) {
+    if (this.editFormCrl.valid && this.editFormCrl.value.trim()) {
+      this.updateTask(index, { title: this.editFormCrl.value, editing: false });
+    }
+  }
   updateTask(index: number, changes: UpdateTask) {
     this.tasks.update((tasks) => {
       return tasks.map((task, position) => {
         if (position != index) {
-          return task;
+          return { ...task, editing: false };
         }
-        if (!task.isEditable) {
-          return task;
-        }
+        
         const updatedTask = {
           ...task,
           ...changes,
         };
+
         return updatedTask;
       });
     });
