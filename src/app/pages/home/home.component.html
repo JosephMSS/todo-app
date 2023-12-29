@@ -17,11 +17,6 @@
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class="main">
       <ul class="todo-list">
-        <code>
-          <h1>{{ selectedStatusTask() }}</h1>
-          {{ tasks() | json }}
-        </code>
-
         <li
           *ngFor="let task of filteredTasks(); index as index"
           [class.completed]="task.completed"
