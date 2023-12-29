@@ -5,7 +5,7 @@
   <hr />
   <h3>
     Podemos utilizar funciones de javascript en los corchetes por ejemplo 2+2={{
-    2 + 2
+      2 + 2
     }}
   </h3>
   <hr />
@@ -34,45 +34,39 @@
   <h3>Directivas de control</h3>
   <ul>
     @for (task of tasks(); track task) {
-      <li>
-        {{ task }}
-      </li>
+    <li>
+      {{ task }}
+    </li>
     }
   </ul>
   <hr />
   <button (click)="changeIfState()">Change if State</button>
   @if (ifState()) {
-    <h3>NG IF</h3>
+  <h3>NG IF</h3>
   } @else {
-    <h3>NG-else</h3>
-  }
-  @if (ifState()) {
-    <strong>new NG IF</strong>
-    }@else {
-    <i> new ng Else</i>
+  <h3>NG-else</h3>
+  } @if (ifState()) {
+  <strong>new NG IF</strong>
+  }@else {
+  <i> new ng Else</i>
   }
   <hr />
   <h3>NG SWITCH</h3>
   <br />
   @for (config of config(); track config) {
-    <button (click)="changeSelectedConfig(config)">{{ config }}</button><br />
+  <button (click)="changeSelectedConfig(config)">{{ config }}</button><br />
   }
   <br />
   <section>
-    @switch (selectedConfig()) {
-      @case (config()[0]) {
-        <p>development</p>
-      }
-      @case (config()[1]) {
-        <p>production</p>
-      }
-      @case (config()[2]) {
-        <p>test</p>
-      }
-      @default {
-        <p>default</p>
-      }
-    }
+    @switch (selectedConfig()) { @case (config()[0]) {
+    <p>development</p>
+    } @case (config()[1]) {
+    <p>production</p>
+    } @case (config()[2]) {
+    <p>test</p>
+    } @default {
+    <p>default</p>
+    } }
   </section>
   <br />
   <hr />
@@ -81,27 +75,27 @@
   <p
     [ngClass]="classCtrl.valid ? '' : 'message-error'"
     [class.show]="classCtrl.invalid && classCtrl.touched"
-    >
+  >
     Nombre invalido
   </p>
   <input type="text" name="" id="" />
   <h3>Directivas de control new for</h3>
   <ul>
     @for (task of tasks(); track task; let index =$index) {
-      <li>
-        {{ task }}
-      </li>
+    <li>
+      {{ task }}
+    </li>
     }
   </ul>
   <section>
     @switch (selectedConfig()) { @case (config()[0]) {
-      <p>development</p>
-      } @case (config()[1]) {
-      <p>production</p>
-      } @case (config()[2]) {
-      <p>test</p>
-      } @default {
-      <p>default</p>
-      } }
-    </section>
+    <p>development</p>
+    } @case (config()[1]) {
+    <p>production</p>
+    } @case (config()[2]) {
+    <p>test</p>
+    } @default {
+    <p>default</p>
+    } }
   </section>
+</section>
