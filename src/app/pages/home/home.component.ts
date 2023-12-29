@@ -3,7 +3,29 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task, UpdateTask } from '../../models/task.model';
 const INITIAL_FORM_STATE = '';
-const FORM_CONFIG = {};
+//generate random unique id without date.now
+
+const generateId = () => {
+  return Math.random().toString(36).substr(2, 9);
+};
+
+const create = (title: string) => {
+  const id = generateId();
+  const newTask: Task = {
+    id,
+    title,
+    completed: false,
+    isUpdatable: true,
+    editing: false,
+  };
+  return newTask;
+};
+const INITIAL_TASK_STATE: Task[] = [
+  create('Install Angular CLI'),
+  create('Style app'),
+  create('Finish service functionality'),
+  create('Setup API'),
+];
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home',
@@ -13,12 +35,7 @@ const FORM_CONFIG = {};
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  tasks = signal<Task[]>([
-    this.create('Install Angular CLI'),
-    this.create('Style app'),
-    this.create('Finish service functionality'),
-    this.create('Setup API'),
-  ]);
+  tasks = signal<Task[]>(INITIAL_TASK_STATE);
   formCtrl = new FormControl(INITIAL_FORM_STATE, {
     nonNullable: true,
     validators: [Validators.required],
@@ -29,7 +46,6 @@ export class HomeComponent {
   });
   createHandler() {
     if (this.formCtrl.valid && this.formCtrl.value.trim()) {
-      const newTask = this.create(this.formCtrl.value);
     }
     this.formCtrl.setValue(INITIAL_FORM_STATE);
   }
@@ -48,7 +64,7 @@ export class HomeComponent {
 
   delete(id: string) {
     this.tasks.update((tasks) =>
-      tasks.filter((task, position) => task.id !== id)
+      tasks.filter((task) => task.id !== id)
     );
   }
   create(title: string) {
