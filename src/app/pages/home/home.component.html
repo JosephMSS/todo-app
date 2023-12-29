@@ -17,8 +17,8 @@
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class="main">
       <ul class="todo-list">
+        @for (task of filteredTasks(); track task; let index = $index) {
         <li
-          *ngFor="let task of filteredTasks(); index as index"
           [class.completed]="task.completed"
           [class.editing]="task.editing"
           (dblclick)="
@@ -46,6 +46,7 @@
             [formControl]="editFormCrl"
           />
         </li>
+        }
       </ul>
     </section>
     <!-- This footer should be hidden by default and shown when there are todos -->
