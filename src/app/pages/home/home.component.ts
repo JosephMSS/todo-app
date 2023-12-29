@@ -48,6 +48,10 @@ export class HomeComponent {
   statusTask = TaskStatus;
   tasks = signal<Task[]>(INITIAL_TASK_STATE);
   selectedStatusTask = signal<TaskStatus>(this.statusTask.All);
+  //Computed  retona un valor computado, es decir, un valor que se calcula en base a otros valores.
+  /**
+   * Esta pedniente de camnios en los signals que se le pasan como argumento
+   */
   filteredTasks = computed(() => {
     const filter = this.selectedStatusTask();
     const tasks = this.tasks();
