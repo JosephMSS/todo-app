@@ -65,25 +65,21 @@
         <li>
           <a
             (click)="changeStatus(statusTask.All)"
-            [ngClass]="selectedStatusTask() == statusTask.All ? 'selected' : ''"
+            [class.selected]="selectedStatusTask() == statusTask.All"
             >All</a
           >
         </li>
         <li>
           <a
             (click)="changeStatus(statusTask.Pending)"
-            [ngClass]="
-              selectedStatusTask() == statusTask.Pending ? 'selected' : ''
-            "
+            [class.selected]="selectedStatusTask() == statusTask.Pending"
             >Pending</a
           >
         </li>
         <li>
           <a
             (click)="changeStatus(statusTask.Completed)"
-            [ngClass]="
-              selectedStatusTask() == statusTask.Completed ? 'selected' : ''
-            "
+            [class.selected]="selectedStatusTask() == statusTask.Completed"
             >Completed</a
           >
         </li>
