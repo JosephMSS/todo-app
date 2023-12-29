@@ -18,11 +18,12 @@
     <section class="main">
       <ul class="todo-list">
         <code>
+          <h1>{{selectedStatusTask()}}</h1>
           {{ tasks() | json }}
         </code>
 
         <li
-          *ngFor="let task of tasks(); index as index"
+          *ngFor="let task of filteredTasks(); index as index"
           [class.completed]="task.completed"
           [class.editing]="task.editing"
           (dblclick)="

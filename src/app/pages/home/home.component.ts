@@ -1,5 +1,10 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task, UpdateTask } from '../../models/task.model';
 const INITIAL_FORM_STATE = '';
@@ -26,6 +31,11 @@ const INITIAL_TASK_STATE: Task[] = [
   create('Finish service functionality'),
   create('Setup API'),
 ];
+enum TaskStatus {
+  Pending = 'pending',
+  Completed = 'completed',
+  All = 'all',
+}
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home',
@@ -36,6 +46,18 @@ const INITIAL_TASK_STATE: Task[] = [
 })
 export class HomeComponent {
   tasks = signal<Task[]>(INITIAL_TASK_STATE);
+  selectedStatusTask = signal<TaskStatus>(TaskStatus.All);
+  filteredTasks = computed(() => {
+    const filter = this.selectedStatusTask();
+    const tasks = this.tasks();
+    if (filter === TaskStatus.Completed) {
+      return tasks.filter((task) => task.completed);
+    }
+    if (filter == TaskStatus.Pending) {
+      return tasks.filter((task) => !task.completed);
+    }
+    return tasks;
+  });
   formCtrl = new FormControl(INITIAL_FORM_STATE, {
     nonNullable: true,
     validators: [Validators.required],
@@ -63,9 +85,7 @@ export class HomeComponent {
   }
 
   delete(id: string) {
-    this.tasks.update((tasks) =>
-      tasks.filter((task) => task.id !== id)
-    );
+    this.tasks.update((tasks) => tasks.filter((task) => task.id !== id));
   }
   create(title: string) {
     const id = Date.now().toString();
