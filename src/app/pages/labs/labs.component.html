@@ -42,6 +42,11 @@
   <ng-container *ngIf="ifState(); else elseTemplate">
     <h3>NG IF</h3>
   </ng-container>
+  @if (ifState()) {
+  <strong>new NG IF</strong>
+  }@else {
+  <i> new ng Else</i>
+  }
   <ng-template #elseTemplate> <h3>NG-else</h3> </ng-template>
   <hr />
   <h3>NG SWITCH</h3>
@@ -64,9 +69,18 @@
   <!-- Hace que el input aparezca hasta que se presente un interacción con el usuario -->
   <p
     [ngClass]="classCtrl.valid ? '' : 'message-error'"
-   [class.show]="classCtrl.invalid && classCtrl.touched"
+    [class.show]="classCtrl.invalid && classCtrl.touched"
   >
     Nombre invalido
   </p>
-  <input type="text" name="" id="">
+  <input type="text" name="" id="" />
+  <h3>Directivas de control new for</h3>
+  <ul>
+    @for (task of tasks(); track task; let index =$index) {
+
+    <li>
+      {{ task }}
+    </li>
+    }
+  </ul>
 </section>
