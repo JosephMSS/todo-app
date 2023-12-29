@@ -45,15 +45,16 @@ enum TaskStatus {
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
+  statusTask = TaskStatus;
   tasks = signal<Task[]>(INITIAL_TASK_STATE);
-  selectedStatusTask = signal<TaskStatus>(TaskStatus.All);
+  selectedStatusTask = signal<TaskStatus>(this.statusTask.All);
   filteredTasks = computed(() => {
     const filter = this.selectedStatusTask();
     const tasks = this.tasks();
-    if (filter === TaskStatus.Completed) {
+    if (filter === this.statusTask.Completed) {
       return tasks.filter((task) => task.completed);
     }
-    if (filter == TaskStatus.Pending) {
+    if (filter == this.statusTask.Pending) {
       return tasks.filter((task) => !task.completed);
     }
     return tasks;
@@ -83,7 +84,9 @@ export class HomeComponent {
       this.update(id, { title: this.editFormCrl.value, editing: false });
     }
   }
-
+  changeStatus(changes: TaskStatus) {
+    this.selectedStatusTask.update((_status) => changes);
+  }
   delete(id: string) {
     this.tasks.update((tasks) => tasks.filter((task) => task.id !== id));
   }

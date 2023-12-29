@@ -18,7 +18,7 @@
     <section class="main">
       <ul class="todo-list">
         <code>
-          <h1>{{selectedStatusTask()}}</h1>
+          <h1>{{ selectedStatusTask() }}</h1>
           {{ tasks() | json }}
         </code>
 
@@ -57,19 +57,19 @@
     <footer class="footer">
       <!-- This should be `0 items left` by default -->
       <span class="todo-count">
-        <strong>{{ tasks().length }}</strong>
-        {{ tasks().length > 1 ? "items" : "item" }} left
+        <strong>{{ filteredTasks().length }}</strong>
+        {{ filteredTasks().length === 1 ? "item" : "items" }}
       </span>
       <!-- Remove this if you don't implement routing -->
       <ul class="filters">
         <li>
-          <a routerLink="/" class="selected">All</a>
+          <a (click)="changeStatus(statusTask.All)" class="selected">All</a>
         </li>
         <li>
-          <a routerLink="/pending">Pending</a>
+          <a (click)="changeStatus(statusTask.Pending)">Pending</a>
         </li>
         <li>
-          <a routerLink="/completed">Completed</a>
+          <a (click)="changeStatus(statusTask.Completed)">Completed</a>
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->
