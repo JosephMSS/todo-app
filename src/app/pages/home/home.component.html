@@ -58,18 +58,34 @@
       <!-- This should be `0 items left` by default -->
       <span class="todo-count">
         <strong>{{ filteredTasks().length }}</strong>
-        {{ filteredTasks().length === 1 ? "item" : "items" }}
+        {{ counterLabel(filteredTasks().length) }}
       </span>
       <!-- Remove this if you don't implement routing -->
       <ul class="filters">
         <li>
-          <a (click)="changeStatus(statusTask.All)" class="selected">All</a>
+          <a
+            (click)="changeStatus(statusTask.All)"
+            [ngClass]="selectedStatusTask() == statusTask.All ? 'selected' : ''"
+            >All</a
+          >
         </li>
         <li>
-          <a (click)="changeStatus(statusTask.Pending)">Pending</a>
+          <a
+            (click)="changeStatus(statusTask.Pending)"
+            [ngClass]="
+              selectedStatusTask() == statusTask.Pending ? 'selected' : ''
+            "
+            >Pending</a
+          >
         </li>
         <li>
-          <a (click)="changeStatus(statusTask.Completed)">Completed</a>
+          <a
+            (click)="changeStatus(statusTask.Completed)"
+            [ngClass]="
+              selectedStatusTask() == statusTask.Completed ? 'selected' : ''
+            "
+            >Completed</a
+          >
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->

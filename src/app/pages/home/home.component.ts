@@ -90,6 +90,13 @@ export class HomeComponent {
   delete(id: string) {
     this.tasks.update((tasks) => tasks.filter((task) => task.id !== id));
   }
+  counterLabel(itemsCount: number) {
+    const label: { [key: number]: string } = {
+      0: 'items left',
+      1: 'item',
+    };
+    return label[itemsCount] || 'items';
+  }
   create(title: string) {
     const id = Date.now().toString();
     const newTask: Task = {
